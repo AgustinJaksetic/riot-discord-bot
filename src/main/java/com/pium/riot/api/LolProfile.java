@@ -1,44 +1,41 @@
 package com.pium.riot.api;
 
-public class LolProfile {
-    String riotuser, rank, tier, queuetype;
-    int leaguepoints, wins, losses;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-    public LolProfile(String riotuser,String rank,String tier,int leaguepoints,int wins,int losses, String queuetype){
-        this.riotuser = riotuser;
+@Data
+@AllArgsConstructor
+public class LolProfile {
+    private String riotUser;
+    private String rank;
+    private String tier;
+    private String queueType;
+    private Integer leaguePoints;
+    private Integer wins;
+    private Integer losses;
+
+    public LolProfile(String riotUser, String rank, String tier, Integer leaguePoints,
+                      Integer wins, Integer losses, String queueType){
+        this.riotUser = riotUser;
         this.rank = rank;
         this.tier = tier;
-        this.leaguepoints = leaguepoints;
+        this.leaguePoints = leaguePoints;
         this.wins = wins;
         this.losses = losses;
-        this.queuetype = queuetype.equals("RANKED_SOLO_5x5") ? "Ranked Solo" : "Ranked Flex";
+        this.queueType = queueType
+                .equals("RANKED_SOLO_5x5") ? "Ranked Solo" : "Ranked Flex";
     }
 
-    public String getQueuetype() {
-        return queuetype;
-    }
-
-    public String getRiotuser() {
-        return riotuser;
-    }
-
-    public String getRank() {
-        return rank;
-    }
-
-    public String getTier() {
-        return tier;
-    }
-
-    public int getLeaguePoints() {
-        return leaguepoints;
-    }
-
-    public int getWins() {
-        return wins;
-    }
-
-    public int getLosses() {
-        return losses;
+    public String showUserStats() {
+        return String.format(
+                "Ranked: %s\nRiotUser: %s\nElo: %s %s\nLP: %d\nWins: %d\nLosses: %d",
+                getQueueType(),
+                getRiotUser(),
+                getTier(),
+                getRank(),
+                getLeaguePoints(),
+                getWins(),
+                getLosses()
+        );
     }
 }

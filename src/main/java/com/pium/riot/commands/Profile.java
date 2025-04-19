@@ -7,14 +7,20 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import java.io.IOException;
 
 public class Profile implements RiotBotCommand {
+    private ApiRiot apiRiot;
+    private static final String[] REGIONS = {"br", "na", "eune", "eu", "jp", "kr", "lan", "las", "oce", "tr"};
+    private static final String[] TAGS = {"br", "na", "eune", "eu", "jp", "kr", "lan", "las", "oce", "tr"};
 
     @Override
     public void execute(SlashCommandInteractionEvent event) throws IOException {
+        String summonerName = getOptionValue(event, "nick");
+        String tag = getOptionValue(event, "tag");
+        String region = getOptionValue(event, "region");
 
-        String summonerName = event.getOption("nick").getAsString();
-        String tag = event.getOption("tag").getAsString();
-        String region = event.getOption("region").getAsString();
-        ApiRiot apiRiot;
+        if (summonerName == null || tag == null || region == null) {
+            event.reply("Faltan argumentos. ").setEphemeral(true).queue();
+            return;
+        }
 
         try {
             apiRiot = new ApiRiot(summonerName, tag, region);
@@ -24,17 +30,18 @@ public class Profile implements RiotBotCommand {
         }
 
         for (int i = 0; i <= 1; i++) {
-            LolProfile lolprofile = apiRiot.getDatos(i);
-            if (lolprofile != null) {
-                event.reply("Ranked: " + lolprofile.getQueuetype() + "\n" +
-                        "RiotUser: " + lolprofile.getRiotuser() + "\n" +
-                        "elo: " + lolprofile.getTier() + " " + lolprofile.getRank() + "\n" +
-                        "LP: " + lolprofile.getLeaguePoints() + "\n" +
-                        "Wins: " + lolprofile.getWins() + "\n" +
-                        "Losses: " + lolprofile.getLosses()).queue();
-            } else if (i == 0) {
-                event.reply("Unranked").queue();
+            LolProfile profile = apiRiot.getDatos(i);
+            if (profile != null) {
+                event.reply(profile.showUserStats()).queue();
+                return;
             }
         }
+
+        event.reply("Unranked").queue();
     }
+
+    private String getOptionValue(SlashCommandInteractionEvent event, String optionName) {
+        return event.getOption(optionName) != null ? event.getOption(optionName).getAsString() : null;
+    }
+
 }

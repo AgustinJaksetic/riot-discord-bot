@@ -1,4 +1,4 @@
-package com.pium.riot;
+package com.pium.riot.service;
 
 import com.pium.riot.commands.Profile;
 import com.pium.riot.commands.RiotBotCommand;
@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RiotCommandManager extends ListenerAdapter {
+public class RiotCommandManagerService extends ListenerAdapter {
     private final Map<String, RiotBotCommand> commands = new HashMap<>();
 
-    public RiotCommandManager() {
+    public RiotCommandManagerService() {
         addCommand("profile", new Profile());
     }
 
@@ -22,10 +22,8 @@ public class RiotCommandManager extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        String commandname = event.getName();
-        RiotBotCommand command = commands.get(commandname);
         try {
-            command.execute(event);
+            commands.get(event.getName()).execute(event);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

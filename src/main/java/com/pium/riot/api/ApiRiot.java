@@ -16,6 +16,8 @@ public class ApiRiot {
     private String puuidurl;
     private String routingregion;
     private String platformregion;
+    private final String PROTOCOL = "https://";
+    private final String API_KEY = "?api_key=";
 
     public ApiRiot(String nick, String tag, String region) throws IOException {
         this.apiKey = dotenv.get("riot_api_key");
@@ -25,12 +27,11 @@ public class ApiRiot {
         String[] regiones = region.split("\\|");
         this.routingregion = regiones[0];
         this.platformregion = regiones[1];
-        this.riotuserurl = "https://" + routingregion + ".api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + nickencoded + "/" + tagencoded + "?api_key=" + apiKey;
+        this.riotuserurl = PROTOCOL + routingregion + ".api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + nickencoded + "/" + tagencoded + "?api_key=" + apiKey;
         getPuuid();
     }
 
     private void getPuuid() throws IOException {
-
         URL url = URI.create(riotuserurl).toURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
