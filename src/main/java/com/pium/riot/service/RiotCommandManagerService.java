@@ -1,6 +1,6 @@
 package com.pium.riot.service;
 
-import com.pium.riot.commands.Profile;
+import com.pium.riot.commands.profilecommand.Profile;
 import com.pium.riot.commands.RiotBotCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

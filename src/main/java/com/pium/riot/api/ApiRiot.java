@@ -27,7 +27,7 @@ public class ApiRiot {
         String[] regiones = region.split("\\|");
         this.routingregion = regiones[0];
         this.platformregion = regiones[1];
-        this.riotuserurl = PROTOCOL + routingregion + ".api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + nickencoded + "/" + tagencoded + "?api_key=" + apiKey;
+        this.riotuserurl = PROTOCOL + routingregion + ".api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + nickencoded + "/" + tagencoded + API_KEY + apiKey;
         getPuuid();
     }
 

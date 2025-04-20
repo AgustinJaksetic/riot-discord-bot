@@ -23,7 +23,7 @@ public class LolProfile {
         this.wins = wins;
         this.losses = losses;
         this.queueType = queueType
-                .equals("RANKED_SOLO_5x5") ? "Ranked Solo" : "Ranked Flex";
+                .equals("RANKED_SOLO_5x5") ? "Ranked Solo Q" : "Ranked Flex";
     }
 
     public String showUserStats() {

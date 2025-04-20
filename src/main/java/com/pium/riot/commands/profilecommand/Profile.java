@@ -1,15 +1,16 @@
-package com.pium.riot.commands;
+package com.pium.riot.commands.profilecommand;
 
 import com.pium.riot.api.ApiRiot;
-import com.pium.riot.api.LolProfile;
+import com.pium.riot.commands.RiotBotCommand;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.io.IOException;
 
 public class Profile implements RiotBotCommand {
-    private ApiRiot apiRiot;
-    private static final String[] REGIONS = {"br", "na", "eune", "eu", "jp", "kr", "lan", "las", "oce", "tr"};
-    private static final String[] TAGS = {"br", "na", "eune", "eu", "jp", "kr", "lan", "las", "oce", "tr"};
+    public ProfileService service;
 
     @Override
     public void execute(SlashCommandInteractionEvent event) throws IOException {
@@ -17,31 +18,36 @@ public class Profile implements RiotBotCommand {
         String tag = getOptionValue(event, "tag");
         String region = getOptionValue(event, "region");
 
+
         if (summonerName == null || tag == null || region == null) {
             event.reply("Faltan argumentos. ").setEphemeral(true).queue();
             return;
         }
 
         try {
-            apiRiot = new ApiRiot(summonerName, tag, region);
+            service = new ProfileService(new ApiRiot(summonerName, tag, region));
         } catch (IOException e) {
             event.reply("No existe la cuenta").setEphemeral(true).queue();
             return;
         }
 
-        for (int i = 0; i <= 1; i++) {
-            LolProfile profile = apiRiot.getDatos(i);
-            if (profile != null) {
-                event.reply(profile.showUserStats()).queue();
-                return;
-            }
-        }
+        if(!service.embeds.isEmpty()) service.embeds.clear();
 
-        event.reply("Unranked").queue();
+        event.deferReply().queue();
+        service.profilesBuilder();
+
+        event.getHook().sendMessageEmbeds(service.embeds).addActionRow(
+            Button.link("https://github.com/AgustinJak/riot-discord-bot", "GitHub").
+            withEmoji(Emoji.fromCustom("GitIcon", 1363525155573338212L, false))
+            ).queue();
     }
 
     private String getOptionValue(SlashCommandInteractionEvent event, String optionName) {
         return event.getOption(optionName) != null ? event.getOption(optionName).getAsString() : null;
     }
 
+
 }
+
+
+
