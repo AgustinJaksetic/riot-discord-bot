@@ -10,12 +10,14 @@ public class LolProfile {
     private String rank;
     private String tier;
     private String queueType;
+    private String region;
     private Integer leaguePoints;
     private Integer wins;
     private Integer losses;
 
     public LolProfile(String riotUser, String rank, String tier, Integer leaguePoints,
-                      Integer wins, Integer losses, String queueType){
+                      Integer wins, Integer losses, String queueType, String region){
+        this.region = region;
         this.riotUser = riotUser;
         this.rank = rank;
         this.tier = tier;

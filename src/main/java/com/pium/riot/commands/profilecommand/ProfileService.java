@@ -3,11 +3,11 @@ package com.pium.riot.commands.profilecommand;
 
 import com.pium.riot.api.ApiRiot;
 import com.pium.riot.api.LolProfile;
-import com.pium.riot.commands.profilecommand.utils.embed;
+import com.pium.riot.commands.profilecommand.utils.EmbedConfigBuilder;
+import com.pium.riot.commands.profilecommand.utils.EmbedColor;
+import com.pium.riot.commands.profilecommand.utils.Images;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
-
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,35 +35,24 @@ public class ProfileService {
     }
 
     private MessageEmbed embedBuilder(LolProfile Profile) {
-        return embed.generateEmbed(
-                Profile.getQueueType(),
-                null,
-                null,
-                Profile.getTier()+ " " + Profile.getRank(),
-                "Lp: " + Profile.getLeaguePoints(),
-                "Partidas: ",
-                "Wins: " + Profile.getWins() + "\n" + "Losses: " + Profile.getLosses(),
-                Profile.getRiotUser(),
-                (Profile.getQueueType().equals("Ranked Solo Q") ? Color.BLUE : Color.MAGENTA),
-                null,
-                null
-        );
+        String tier = Profile.getTier();
 
+        return EmbedConfigBuilder.builder().authorName(Profile.getQueueType()).
+                title(tier + " " + Profile.getRank()).
+                description("Lp: " + Profile.getLeaguePoints()).
+                field("Partidas: ").
+                inField("Wins: " + Profile.getWins() + "\n" + "Losses: " + Profile.getLosses()).
+                secondFiel("Server: ").
+                secondInField(Profile.getRegion()).
+                footer(Profile.getRiotUser()).
+                color(EmbedColor.getApiValue(tier)).
+                thumbnailUrlImage(Images.getApiValue(tier))
+                .build().buildEmbed();
     }
-
     public MessageEmbed defaultBuildEmbed(){
-        return embed.generateEmbed(
-                (queue.equals("Ranked Solo Q") ? "Ranked Flex" : "Ranked Solo Q"),
-                null,
-                null,
-                "Unranked",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
+        return EmbedConfigBuilder.builder()
+                .authorName((queue.equals("Ranked Solo Q") ? "Ranked Flex" : "Ranked Solo Q")).
+                title("Unranked").
+                build().buildEmbed();
     }
 }

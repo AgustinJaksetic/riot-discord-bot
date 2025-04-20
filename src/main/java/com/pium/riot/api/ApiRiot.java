@@ -79,6 +79,6 @@ public class ApiRiot {
         int wins = rank.getInt("wins");
         int losses = rank.getInt("losses");
 
-        return new LolProfile(riotuser, elo, tier, leaguePoints, wins, losses, queuetype);
+        return new LolProfile(riotuser, elo, tier, leaguePoints, wins, losses, queuetype, platformregion);
     }
 }

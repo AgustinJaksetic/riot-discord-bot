@@ -35,7 +35,7 @@ public class Profile implements RiotBotCommand {
         event.deferReply().queue();
         service.profilesBuilder();
 
-        event.getHook().sendMessageEmbeds(service.embeds).addActionRow(
+        event.getHook().sendMessageEmbeds(service.embeds.getLast(), service.embeds.getFirst()).addActionRow(
             Button.link("https://github.com/AgustinJak/riot-discord-bot", "GitHub").
             withEmoji(Emoji.fromCustom("GitIcon", 1363525155573338212L, false))
             ).queue();
