@@ -1,10 +1,6 @@
 package com.pium.riot.service;
 
-import com.pium.riot.service.config.RegionConfig;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 public class CommandRegisterService {
     private final JDA api;

@@ -2,7 +2,6 @@ package com.pium.riot.commands.profilecommand;
 
 import com.pium.riot.api.ApiRiot;
 import com.pium.riot.commands.RiotBotCommand;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
