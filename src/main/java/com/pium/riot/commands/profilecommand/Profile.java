@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.io.IOException;
 
+import static com.pium.riot.commands.profilecommand.ProfileService.isErrorEmbed;
+
 public class Profile implements RiotBotCommand {
     public ProfileService service;
 
@@ -35,7 +37,12 @@ public class Profile implements RiotBotCommand {
         event.deferReply().queue();
         service.profilesBuilder();
 
-        event.getHook().sendMessageEmbeds(service.embeds.getLast(), service.embeds.getFirst()).addActionRow(
+        if (!service.embeds.isEmpty() && isErrorEmbed(service.embeds.getFirst())) {
+            event.getHook().sendMessage("Wrong Server").queue();
+            return;
+        }
+
+        event.getHook().sendMessageEmbeds(service.embeds).addActionRow(
             Button.link("https://github.com/AgustinJak/riot-discord-bot", "GitHub").
             withEmoji(Emoji.fromCustom("GitIcon", 1363525155573338212L, false))
             ).queue();

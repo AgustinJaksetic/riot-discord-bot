@@ -1,10 +1,8 @@
 package com.pium.riot.service.config.utils;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Collections;
-import java.util.HashMap;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -15,9 +13,10 @@ public final class Region {
     }
 
     public static final String LAS = "LAS";
+    public static final String LAN = "LAN";
     public static final String BR = "BR";
     public static final String NA = "NA";
-    public static final String EU = "EU";
+    public static final String EUW = "EUW";
     public static final String KR = "KR";
     public static final String JP = "JP";
     public static final String SEA = "SEA";
@@ -30,9 +29,10 @@ public final class Region {
 
         REGION_API_VALUES = Map.of(
                 LAS, "americas|la2",
+                LAN, "americas|la1",
                 BR, "americas|br1",
                 NA, "americas|na1",
-                EU, "europe|euw1",
+                EUW, "europe|euw1",
                 KR, "asia|kr",
                 JP, "asia|jp1",
                 SEA, "sea|ph2");

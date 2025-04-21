@@ -8,6 +8,7 @@ import com.pium.riot.commands.utils.EmbedColor;
 import com.pium.riot.commands.utils.Images;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,11 +53,15 @@ public class ProfileService {
     }
 
     public MessageEmbed defaultBuildEmbed(){
+        String a = queue == null ? "Server Wrong" :
+                queue.equals("Ranked Solo Q") ? "Ranked Flex" : "Ranked Solo Q";
+
         return EmbedConfigBuilder.builder()
-                .authorName((queue.equals("Ranked Solo Q") ? "Ranked Flex" : "Ranked Solo Q")).
-                title("Unranked").
-                build().
-                buildEmbed();
+                .authorName(a)
+                .title("Unranked")
+                .color(Color.BLACK)
+                .build()
+                .buildEmbed();
     }
 
     public static String winrateCalculated(int wins, int losses) {
@@ -65,4 +70,11 @@ public class ProfileService {
         int winrate = (int) Math.round(((double) wins / total) * 100);
         return winrate + "%";
     }
+
+    public static boolean isErrorEmbed(MessageEmbed embed) {
+        return "Server Wrong".equals(
+                embed.getAuthor() != null ? embed.getAuthor().getName() : null
+        );
+    }
+
 }
