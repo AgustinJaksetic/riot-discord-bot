@@ -3,9 +3,9 @@ package com.pium.riot.commands.profilecommand;
 
 import com.pium.riot.api.ApiRiot;
 import com.pium.riot.api.LolProfile;
-import com.pium.riot.commands.profilecommand.utils.EmbedConfigBuilder;
-import com.pium.riot.commands.profilecommand.utils.EmbedColor;
-import com.pium.riot.commands.profilecommand.utils.Images;
+import com.pium.riot.commands.utils.EmbedConfigBuilder;
+import com.pium.riot.commands.utils.EmbedColor;
+import com.pium.riot.commands.utils.Images;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.io.IOException;
@@ -40,19 +40,29 @@ public class ProfileService {
         return EmbedConfigBuilder.builder().authorName(Profile.getQueueType()).
                 title(tier + " " + Profile.getRank()).
                 description("Lp: " + Profile.getLeaguePoints()).
-                field("Partidas: ").
+                field("Games: ").
                 inField("Wins: " + Profile.getWins() + "\n" + "Losses: " + Profile.getLosses()).
-                secondFiel("Server: ").
-                secondInField(Profile.getRegion()).
+                secondFiel("Winrate: ").
+                secondInField(winrateCalculated(Profile.getWins(), Profile.getLosses())).
                 footer(Profile.getRiotUser()).
                 color(EmbedColor.getApiValue(tier)).
-                thumbnailUrlImage(Images.getApiValue(tier))
-                .build().buildEmbed();
+                thumbnailUrlImage(Images.getApiValue(tier)).
+                build().
+                buildEmbed();
     }
+
     public MessageEmbed defaultBuildEmbed(){
         return EmbedConfigBuilder.builder()
                 .authorName((queue.equals("Ranked Solo Q") ? "Ranked Flex" : "Ranked Solo Q")).
                 title("Unranked").
-                build().buildEmbed();
+                build().
+                buildEmbed();
+    }
+
+    public static String winrateCalculated(int wins, int losses) {
+        int total = wins + losses;
+        if (total == 0) return "0%";
+        int winrate = (int) Math.round(((double) wins / total) * 100);
+        return winrate + "%";
     }
 }

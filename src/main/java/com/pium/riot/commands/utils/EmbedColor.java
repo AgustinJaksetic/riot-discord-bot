@@ -1,4 +1,4 @@
-package com.pium.riot.commands.profilecommand.utils;
+package com.pium.riot.commands.utils;
 
 import java.awt.*;
 import java.util.Map;
