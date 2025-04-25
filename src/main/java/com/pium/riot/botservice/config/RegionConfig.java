@@ -1,6 +1,6 @@
-package com.pium.riot.service.config;
+package com.pium.riot.botservice.config;
 
-import com.pium.riot.service.config.utils.Region;
+import com.pium.riot.botservice.config.utils.Region;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 

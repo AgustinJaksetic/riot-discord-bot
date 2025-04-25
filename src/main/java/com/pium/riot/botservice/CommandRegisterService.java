@@ -1,6 +1,6 @@
-package com.pium.riot.service;
+package com.pium.riot.botservice;
 
-import com.pium.riot.service.config.RegionConfig;
+import com.pium.riot.botservice.config.RegionConfig;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -13,7 +13,7 @@ public class CommandRegisterService {
     }
 
     public void registerCommands() {
-//        api.updateCommands().addCommands(
+//       api.updateCommands().addCommands(
 //                Commands.slash("profile", "Muestra tu perfil de League of Legends")
 //                        .addOption(OptionType.STRING, "nick", "Ingresa tu RiotUser", true)
 //                        .addOption(OptionType.STRING, "tag", "Ingresa tu tag sin el #", true)

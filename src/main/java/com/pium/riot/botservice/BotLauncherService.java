@@ -1,5 +1,6 @@
-package com.pium.riot.service;
+package com.pium.riot.botservice;
 
+import com.pium.riot.commandservice.riotcommandmanagerservice.RiotCommandManagerService;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;

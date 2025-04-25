@@ -1,4 +1,4 @@
-package com.pium.riot.commands;
+package com.pium.riot.commandservice.riotcommandmanagerservice;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 

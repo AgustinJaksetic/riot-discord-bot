@@ -1,4 +1,4 @@
-package com.pium.riot.commands.utils;
+package com.pium.riot.commandservice.commands.utils;
 
 import java.util.Map;
 import java.util.Set;

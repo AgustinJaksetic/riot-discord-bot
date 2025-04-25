@@ -1,17 +1,17 @@
-package com.pium.riot.commands.profilecommand;
+package com.pium.riot.commandservice.commands.profilecommand;
 
-import com.pium.riot.api.ApiRiot;
-import com.pium.riot.commands.RiotBotCommand;
+import com.pium.riot.api.apiconfig.ApiRiot;
+import com.pium.riot.commandservice.riotcommandmanagerservice.RiotBotCommand;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.io.IOException;
 
-import static com.pium.riot.commands.profilecommand.ProfileService.isErrorEmbed;
+import static com.pium.riot.commandservice.commands.profilecommand.LolProfileService.isErrorEmbed;
 
 public class Profile implements RiotBotCommand {
-    public ProfileService service;
+    public LolProfileService service;
 
     @Override
     public void execute(SlashCommandInteractionEvent event) throws IOException {
@@ -26,7 +26,7 @@ public class Profile implements RiotBotCommand {
         }
 
         try {
-            service = new ProfileService(new ApiRiot(summonerName, tag, region));
+            service = new LolProfileService(new ApiRiot(summonerName, tag, region));
         } catch (IOException e) {
             event.reply("No existe la cuenta").setEphemeral(true).queue();
             return;

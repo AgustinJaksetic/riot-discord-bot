@@ -1,11 +1,11 @@
-package com.pium.riot.commands.profilecommand;
+package com.pium.riot.commandservice.commands.profilecommand;
 
 
-import com.pium.riot.api.ApiRiot;
-import com.pium.riot.api.LolProfile;
-import com.pium.riot.commands.utils.EmbedConfigBuilder;
-import com.pium.riot.commands.utils.EmbedColor;
-import com.pium.riot.commands.utils.Images;
+import com.pium.riot.api.apiconfig.ApiRiot;
+import com.pium.riot.api.model.LolProfile;
+import com.pium.riot.commandservice.commands.utils.EmbedConfigBuilder;
+import com.pium.riot.commandservice.commands.utils.EmbedColor;
+import com.pium.riot.commandservice.commands.utils.Images;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.awt.*;
@@ -13,22 +13,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileService {
+public class LolProfileService {
     public List<MessageEmbed> embeds = new ArrayList<>();
     private final ApiRiot apiRiot;
     private String queue;
 
-    public ProfileService(ApiRiot ap){
+    public LolProfileService(ApiRiot ap){
         apiRiot = ap;
     }
 
     public void profilesBuilder() throws IOException {
 
         for (int i = 0; i <= 1; i++) {
-            LolProfile profile = apiRiot.getDatos(i);
+            LolProfile profile = apiRiot.getLolProfile(i);
             if (profile != null) {
+                queue = profile.getQueueType().equals("RANKED_SOLO_5x5") ?
+                        "Ranked Solo Q" : "Ranked Flex";
                 embeds.add(embedBuilder(profile));
-                queue = profile.getQueueType();
             }else{
                 embeds.add(defaultBuildEmbed());
             }
@@ -38,7 +39,8 @@ public class ProfileService {
     private MessageEmbed embedBuilder(LolProfile Profile) {
         String tier = Profile.getTier();
 
-        return EmbedConfigBuilder.builder().authorName(Profile.getQueueType()).
+        return EmbedConfigBuilder.builder().
+                authorName(queue).
                 title(tier + " " + Profile.getRank()).
                 description("Lp: " + Profile.getLeaguePoints()).
                 field("Games: ").

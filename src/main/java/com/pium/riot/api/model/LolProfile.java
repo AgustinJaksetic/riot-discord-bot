@@ -1,32 +1,20 @@
-package com.pium.riot.api;
+package com.pium.riot.api.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class LolProfile {
+public class LolProfile{
     private String riotUser;
     private String rank;
     private String tier;
     private String queueType;
     private String region;
+    private String server;
     private Integer leaguePoints;
     private Integer wins;
     private Integer losses;
-
-    public LolProfile(String riotUser, String rank, String tier, Integer leaguePoints,
-                      Integer wins, Integer losses, String queueType, String region){
-        this.region = region;
-        this.riotUser = riotUser;
-        this.rank = rank;
-        this.tier = tier;
-        this.leaguePoints = leaguePoints;
-        this.wins = wins;
-        this.losses = losses;
-        this.queueType = queueType
-                .equals("RANKED_SOLO_5x5") ? "Ranked Solo Q" : "Ranked Flex";
-    }
 
     public String showUserStats() {
         return String.format(

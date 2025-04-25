@@ -1,4 +1,4 @@
-package com.pium.riot.service.config.utils;
+package com.pium.riot.botservice.config.utils;
 
 import lombok.Getter;
 
@@ -28,14 +28,14 @@ public final class Region {
     static {
 
         REGION_API_VALUES = Map.of(
-                LAS, "americas|la2",
-                LAN, "americas|la1",
-                BR, "americas|br1",
-                NA, "americas|na1",
-                EUW, "europe|euw1",
-                KR, "asia|kr",
-                JP, "asia|jp1",
-                SEA, "sea|ph2");
+                LAS, "americas:la2",
+                LAN, "americas:la1",
+                BR, "americas:br1",
+                NA, "americas:na1",
+                EUW, "europe:euw1",
+                KR, "asia:kr",
+                JP, "asia:jp1",
+                SEA, "sea:ph2");
     }
 
     public static String getApiValue(String regionName) {
