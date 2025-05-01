@@ -64,17 +64,19 @@ public class ApiRiot {
             return null;
         }
         JSONObject queue = lol.getJSONObject(cola);
+        String riotUser = name + "#" + tag;
 
         return new LolProfile(
-                name + " #" + tag,
-                queue.getString("rank"),
-                queue.getString("tier"),
-                queue.getString("queueType"),
-                region,
-                server,
-                queue.getInt("leaguePoints"),
-                queue.getInt("wins"),
-                queue.getInt("losses")
+            riotUser,
+            puuid,
+            region,
+            server,
+            queue.getString("rank"),
+            queue.getString("tier"),
+            queue.getString("queueType"),
+            queue.getInt("leaguePoints"),
+            queue.getInt("wins"),
+            queue.getInt("losses")
         );
     }
 }

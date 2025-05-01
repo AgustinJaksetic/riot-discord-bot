@@ -18,7 +18,6 @@ public class CommandRegisterService {
 //                        .addOption(OptionType.STRING, "nick", "Ingresa tu RiotUser", true)
 //                        .addOption(OptionType.STRING, "tag", "Ingresa tu tag sin el #", true)
 //
-//                        //TODO:esta pateando los comandos. cada que se reinicia.
 //                        .addOptions(RegionConfig.getRegionOptions())
 //        ).queue();
     }
