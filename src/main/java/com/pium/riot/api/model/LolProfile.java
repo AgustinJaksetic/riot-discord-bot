@@ -47,7 +47,7 @@ public class LolProfile extends RiotProfile{
                 title(tier + " " + rank).
                 description("Lp: " + leaguePoints).
                 field("Games: ").
-                inField("Wins: " + wins + "\n" + "Losses: " + losses).
+                inField("Total Games: " + (wins + losses) + "\n\n" + "Wins: " + wins + "\n" + "Losses: " + losses).
                 secondFiel("Winrate: ").
                 secondInField(winrateCalculated(wins, losses)).
                 footer(riotUser).

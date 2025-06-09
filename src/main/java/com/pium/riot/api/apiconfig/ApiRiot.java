@@ -14,19 +14,19 @@ public class ApiRiot {
 
     private final Dotenv dotenv = Dotenv.load();
     private final String apiKey = dotenv.get("riot_api_key");
-    private String name;
-    private String tag;
-    private String puuid;
-    private String region;
-    private String server;
+    private final String name;
+    private final String tag;
+    private final String puuid;
+    private final String region;
+    private final String server;
 
     public ApiRiot(String nick, String tag, String region) throws IOException {
         String[] regiones = region.split(":");
         this.region = regiones[0];
         this.server = regiones[1];
         this.name = nick;
-        this.tag = tag;
-        getPuuid();
+        this.tag = tag.replaceAll("#", "");
+        this.puuid = getPuuid();
     }
 
     private StringBuilder getConnection(String Url) throws IOException {
@@ -48,10 +48,10 @@ public class ApiRiot {
         return response;
     }
 
-    private void getPuuid() throws IOException {
+    private String getPuuid() throws IOException {
     StringBuilder datos = getConnection(UrlBuilder.buildAccountUrl(name, tag, region, apiKey));
         JSONObject json = new JSONObject(datos.toString());
-        puuid = json.getString("puuid");
+        return json.getString("puuid");
 
     }
 
